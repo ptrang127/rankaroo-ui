@@ -1,15 +1,12 @@
 import React from 'react';
 import GlobalStyle from './style'
+import NavBar from './views/navbar';
 
 function App() {
   return (
     <div>
-      <header>
         <GlobalStyle />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </header>
+        <NavBar />
     </div>
   );
 }
