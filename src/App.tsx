@@ -1,15 +1,28 @@
 import React from 'react';
-import GlobalStyle from './style'
 import NavBar from './views/navbar';
-import { Container } from './style';
+
+import { Global, css } from '@emotion/react';
+import theme from "./shared/theme/index";
+
+const bodyColor = css`
+  html {
+    background-color: ${theme.bg.darkPurple};
+    color: ${theme.text.default};
+  }
+`;
+
+const fontFamily = css`
+  body {
+    font-family: "Jersey 15", sans-serif;
+    margin: 0;
+  }
+`;
 
 function App() {
   return (
     <div>
-        <GlobalStyle />
-        <Container>
-          <NavBar />
-        </Container>
+        <Global styles={[bodyColor, fontFamily]} />
+        <NavBar />
     </div>
   );
 }
