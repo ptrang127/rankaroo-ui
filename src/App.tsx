@@ -1,12 +1,15 @@
 import React from 'react';
 import GlobalStyle from './style'
 import NavBar from './views/navbar';
+import { Container } from './style';
 
 function App() {
   return (
     <div>
         <GlobalStyle />
-        <NavBar />
+        <Container>
+          <NavBar />
+        </Container>
     </div>
   );
 }

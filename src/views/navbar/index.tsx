@@ -1,8 +1,21 @@
-import NavLogo from "./components/NavLogo";
+// import NavLogo from "./components/NavLogo";
+import { NavBarWrapper, NavLogo, NavItems, NavItem } from "./style";
 
 const NavBar = () => {
     return (
-        <NavLogo />
+        <NavBarWrapper>
+            <NavLogo>
+                Rankaroo
+            </NavLogo>
+            <NavItems>
+                <NavItem>
+                    Insights
+                </NavItem>
+                <NavItem>
+                    About Us
+                </NavItem>
+            </NavItems>
+        </NavBarWrapper>
     );
 };
 
