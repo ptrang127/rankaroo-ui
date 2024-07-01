@@ -1,22 +1,54 @@
-// import NavLogo from "./components/NavLogo";
-import { NavBarWrapper, NavLogo, NavItems, NavItem } from "./style";
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx, css } from '@emotion/react'
+import theme from "../../shared/theme";
 
-const NavBar = () => {
+const navbarCss = {
+    self: css({
+        padding: '24px 0px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    })
+}
+
+const navLogoCss = css({
+    fontSize: '48px',
+    textTransform: 'uppercase',
+})
+
+const navItemsCss = css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+})
+
+const navItemCss = css({
+    margin: '0px 12px',
+    fontSize: '24px',
+    listStyleType: 'none',
+    cursor: 'pointer',
+
+    '&:hover': {
+        color: theme.text.link,
+        textDecoration: 'underline',
+    }
+})
+
+export function NavBar() {
     return (
-        <NavBarWrapper>
-            <NavLogo>
+        <div css={navbarCss.self}>
+            <div css={navLogoCss}>
                 Rankaroo
-            </NavLogo>
-            <NavItems>
-                <NavItem>
+            </div>
+            <ul css={navItemsCss}>
+                <li css={navItemCss}>
                     Insights
-                </NavItem>
-                <NavItem>
+                </li>
+                <li css={navItemCss}>
                     About Us
-                </NavItem>
-            </NavItems>
-        </NavBarWrapper>
-    );
-};
-
-export default NavBar;
+                </li>
+            </ul>
+        </div>
+    )
+}

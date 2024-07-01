@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from './views/navbar';
+import { NavBar } from './views/navbar';
 
 import { Global, css } from '@emotion/react';
 import theme from "./shared/theme/index";
