@@ -24,7 +24,6 @@ const navItemsCss = css({
 })
 
 const navItemCss = css({
-    margin: '0px 12px',
     fontSize: '24px',
     listStyleType: 'none',
     cursor: 'pointer',
