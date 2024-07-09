@@ -1,15 +1,16 @@
 import React from 'react';
-import GlobalStyle from './style'
+import { Global } from '@emotion/react';
+import { globalStyles } from './styles/global';
+import { NavBar } from './views/navbar';
+import { Container } from '@mui/material';
 
 function App() {
   return (
     <div>
-      <header>
-        <GlobalStyle />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </header>
+        <Global styles={globalStyles} />
+        <Container>
+          <NavBar />
+        </Container>
     </div>
   );
 }
