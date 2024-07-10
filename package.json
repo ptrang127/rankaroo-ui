@@ -5,13 +5,16 @@
   "scripts": {
     "start": "vite --port 3000 --open",
     "dev": "vite --port 3000 --open",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "serve": "vite preview --open",
     "test": "vitest"
   },
   "dependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "typescript": "^5.5.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.6",
@@ -22,7 +25,7 @@
     "vitest": "^1.1.1"
   },
   "description": "<h1 align=\"center\">   Vite Template React </h1>",
-  "main": "vite.config.js",
+  "main": "vite.config.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ptrang127/rankaroo-ui.git"
