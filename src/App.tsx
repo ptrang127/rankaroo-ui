@@ -1,10 +1,12 @@
+import React, { FC } from 'react';
 import './App.css';
+import Navbar from './components/Navbar';
 
-const App = () => {
+const App: FC = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div class="container mx-auto w-screen h-screen">
+      <Navbar />
+    </div>
   );
 };
 
