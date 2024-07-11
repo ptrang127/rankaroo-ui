@@ -10,6 +10,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.44.1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "react": "^18.2.0",
@@ -17,10 +18,13 @@
     "typescript": "^5.5.3"
   },
   "devDependencies": {
+    "@tanstack/router-devtools": "^1.44.1",
+    "@tanstack/router-plugin": "^1.44.1",
     "@testing-library/jest-dom": "^6.1.6",
     "@testing-library/react": "^14.1.2",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
+    "daisyui": "^4.12.10",
     "jsdom": "^23.0.1",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
