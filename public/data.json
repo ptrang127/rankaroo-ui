@@ -1,0 +1,22 @@
+{
+    "data" : [
+        {
+            "categoryId": 0,
+            "category": "Actors",
+            "options": [
+                "Tom Holland",
+                "Timothee Chalamet",
+                "Zendaya"
+            ]
+        },
+        {
+            "categoryId": 1,
+            "category": "Actors",
+            "options": [
+                "Tom Holland",
+                "Timothee Chalamet",
+                "Zendaya"
+            ]
+        }
+    ]
+}
