@@ -4,7 +4,7 @@ import { Link } from '@tanstack/react-router'
 export const Navbar: FC<{}> = () => {
     return (
         <div className="navbar bg-base-100">
-            <div className="flex-1">
+            <div className="flex-1 text-5xl uppercase">
                 <Link to="/">
                     Rankaroo
                 </Link>
