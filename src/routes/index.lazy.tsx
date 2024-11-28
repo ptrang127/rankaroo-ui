@@ -15,7 +15,7 @@ interface Category {
 
 interface Subject {
   id: number;
-  categoryId: number;
+  category_id: number;
   name: string;
   wins: number;
   losses: number;
