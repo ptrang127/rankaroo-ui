@@ -1,3 +1,12 @@
+<h1>
+  Rankaroo UI
+</h1>
+
+Rankaroo is a web application that allows users to compare and rank pop culture options across various categories. Built with React, it features an intuitive, user-friendly interface designed to simplify decision-making. The UI employs clean layouts and clear visual cues to guide users through selecting between two options and discovering how their preferences align with aggregated data. By leveraging TypeScript, the codebase ensures enhanced reliability and maintainability through static typing. The application integrates a RESTful API to retrieve data from a PostgreSQL database, enabling smooth and dynamic updates that elevate the overall user experience.
+
+![Screenshot 2024-11-26 at 8 39 25 PM](https://github.com/user-attachments/assets/3d72e019-d7dd-4e43-a22c-d2932038f00c)
+
+
 <h1 align="center">
   Vite Template React
 </h1>
