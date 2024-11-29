@@ -1,8 +1,9 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import Card from '../components/Card'
-import Category from '../components/Category'
 import axios, { AxiosInstance } from 'axios'
 import { useEffect, useState } from 'react';
+import Card from '../components/Card'
+import Category from '../components/Category'
+import ResponsiveGraph from '../components/Graph';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
@@ -51,7 +52,7 @@ function Index() {
   }, []);
 
   return (
-    <div className="">
+    <div className="p-8">
       {categories.map((category) => (
         <Category key={category.id} text={category.name} />
       ))}
@@ -71,6 +72,9 @@ function Index() {
             <Card text={subjects.find((subject) => subject.id === 2)?.name || ''} />
           )}
         </div>
+      </div>
+      <div className="flex justify-center">
+        <ResponsiveGraph />
       </div>
     </div>
   )
