@@ -1,8 +1,9 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import Card from '../components/Card'
-import Category from '../components/Category'
-import axios, { AxiosInstance } from 'axios'
 import { useEffect, useState } from 'react';
+import Card from '../components/Card'
+import CategoryCard from '../components/CategoryCard'
+import { fetchInitialData } from '../hooks/fetchInitialData';
+import { fetchRandomSubjectsByCategory } from '../hooks/fetchRandomSubjectsByCategory';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
@@ -13,65 +14,74 @@ interface Category {
   name: string;
 }
 
-interface Subject {
-  id: number;
-  category_id: number;
-  name: string;
-  wins: number;
-  losses: number;
-}
-
-const apiClient: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
-  timeout: 5000,
-  headers: { 'Content-Type': 'application/json' },
-});
-
 function Index() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [subjects, setSubjects] = useState<Subject[]>([]);
+  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
+  const [currentSubjectName1, setCurrentSubjectName1] = useState<string | null>(null);
+  const [currentSubjectName2, setCurrentSubjectName2] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const getData = async () => {
+    const fetchData = async () => {
       try {
-        const categoriesResponse = await apiClient.get<Category[]>('/categories');
-        console.log(categoriesResponse.data); // Trigger the Axios call
-        setCategories(categoriesResponse.data);
-
-        const subjectsResponse = await apiClient.get<Subject[]>('/subjects');
-        console.log(subjectsResponse.data); // Trigger the Axios call
-        setSubjects(subjectsResponse.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        return error;
+        const { 
+          fetchedCategory, 
+          fetchedSubjectName1, 
+          fetchedSubjectName2, 
+        } = await fetchInitialData(); 
+        setCurrentCategory(fetchedCategory);
+        setCurrentSubjectName1(fetchedSubjectName1);
+        setCurrentSubjectName2(fetchedSubjectName2);
+        setIsLoading(false);
+      } catch (err) {
+        setError(String(err)); 
+        setIsLoading(false); 
       }
     };
 
-    getData(); // Trigger the Axios call when the component mounts
-  }, []);
+    fetchData();
+  }, []); 
+
+  const handleSubjectCardClick = async () => {
+    console.log("Subject Card Click");
+    const {
+      fetchedSubjectName1,
+      fetchedSubjectName2,
+    } = await fetchRandomSubjectsByCategory(currentCategory?.id || -1);
+    setCurrentSubjectName1(fetchedSubjectName1);
+    setCurrentSubjectName2(fetchedSubjectName2);
+  }
 
   return (
     <div className="">
-      {categories.map((category) => (
-        <Category key={category.id} text={category.name} />
-      ))}
-      <div className="flex justify-evenly items-center flex-col md:flex-row my-10 md:my-28 gap-4 md:gap-0">
-        <div className="w-4/5 md:w-1/3">
-          {subjects.find((subject) => subject.id === 1) && (
-            <Card text={subjects.find((subject) => subject.id === 1)?.name || ''} />
-          )}
+      {isLoading ?
+        <p>Loading...</p> :
+        <div>
+        <CategoryCard 
+          key={currentCategory?.id} 
+          text={currentCategory?.name || ''} 
+        />
+        <div className="flex justify-evenly items-center flex-col md:flex-row my-10 md:my-28 gap-4 md:gap-0">
+          <div className="w-4/5 md:w-1/3">
+            <Card 
+              text={currentSubjectName1 || "default subject"}
+              onClick={handleSubjectCardClick}
+            />
+          </div>
+          <div className="w-4/5 md:w-1/3 text-center">
+            <span className="text-6xl">
+              vs
+            </span>
+          </div>
+          <div className="w-4/5 md:w-1/3">
+            <Card 
+              text={currentSubjectName2 || "default subject"}
+              onClick={handleSubjectCardClick}
+            />
+          </div>
         </div>
-        <div className="w-4/5 md:w-1/3 text-center">
-          <span className="text-6xl">
-            vs
-          </span>
         </div>
-        <div className="w-4/5 md:w-1/3">
-          {subjects.find((subject) => subject.id === 2) && (
-            <Card text={subjects.find((subject) => subject.id === 2)?.name || ''} />
-          )}
-        </div>
-      </div>
+      }
     </div>
   )
 }

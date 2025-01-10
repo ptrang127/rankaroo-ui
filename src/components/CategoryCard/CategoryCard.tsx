@@ -1,10 +1,14 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 
-interface Props {
+interface CategoryProps {
     text: string;
 }
 
-export const Category: FC<Props> = (props) => {
+export const CategoryCard = ({ text }: CategoryProps) => {
+    // useEffect(() => {
+    //     onLoad(id); // Trigger the onLoad action with the category ID
+    // }, [id, onLoad]); // Dependency array ensures it runs only when the component mounts
+
     return (
         <div className="">
             <div className="flex justify-center items-center gap-2">
@@ -21,7 +25,7 @@ export const Category: FC<Props> = (props) => {
             </div>
             <div className="flex justify-center">
                 <div className="relative text-5xl w-fit h-fit py-1 px-2 rounded-lg uppercase">
-                    {props.text}
+                    {text}
                 </div>
             </div>
         </div>
