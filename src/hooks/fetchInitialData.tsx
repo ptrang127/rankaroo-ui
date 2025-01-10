@@ -26,8 +26,8 @@ export const fetchInitialData = async () => {
     
     return {
       fetchedCategory: categoryResponse.data,
-      fetchedSubjectName1: randomSubjectsResponse.data[0].name,
-      fetchedSubjectName2: randomSubjectsResponse.data[1].name,
+      fetchedSubject1: randomSubjectsResponse.data[0],
+      fetchedSubject2: randomSubjectsResponse.data[1],
     };
   } catch (err) {
     throw new Error("Error fetching data.");

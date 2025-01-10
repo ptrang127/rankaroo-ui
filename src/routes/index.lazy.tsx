@@ -4,6 +4,7 @@ import Card from '../components/Card'
 import CategoryCard from '../components/CategoryCard'
 import { fetchInitialData } from '../hooks/fetchInitialData';
 import { fetchRandomSubjectsByCategory } from '../hooks/fetchRandomSubjectsByCategory';
+import { incrementSubjectVote } from '../hooks/incrementSubjectVote';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
@@ -14,10 +15,18 @@ interface Category {
   name: string;
 }
 
+interface Subject {
+  id: number;
+  category_id: number;
+  name: string;
+  wins: number;
+  losses: number
+}
+
 function Index() {
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
-  const [currentSubjectName1, setCurrentSubjectName1] = useState<string | null>(null);
-  const [currentSubjectName2, setCurrentSubjectName2] = useState<string | null>(null);
+  const [currentSubject1, setCurrentSubject1] = useState<Subject | null>(null);
+  const [currentSubject2, setCurrentSubject2] = useState<Subject | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,12 +35,12 @@ function Index() {
       try {
         const { 
           fetchedCategory, 
-          fetchedSubjectName1, 
-          fetchedSubjectName2, 
+          fetchedSubject1, 
+          fetchedSubject2, 
         } = await fetchInitialData(); 
         setCurrentCategory(fetchedCategory);
-        setCurrentSubjectName1(fetchedSubjectName1);
-        setCurrentSubjectName2(fetchedSubjectName2);
+        setCurrentSubject1(fetchedSubject1);
+        setCurrentSubject2(fetchedSubject2);
         setIsLoading(false);
       } catch (err) {
         setError(String(err)); 
@@ -42,14 +51,20 @@ function Index() {
     fetchData();
   }, []); 
 
-  const handleSubjectCardClick = async () => {
+  const handleSubjectCardClick = async (votedSubject: Subject | null) => {
     console.log("Subject Card Click");
+    if (!votedSubject || !currentSubject1 || !currentSubject2) return;
+    else if (currentSubject1?.id !== undefined && currentSubject2?.id !== undefined) {
+      await incrementSubjectVote(currentSubject1.id, currentSubject2.id, votedSubject.id);
+      console.log(`Incremented ${votedSubject.name} by 1`)
+    }
+
     const {
-      fetchedSubjectName1,
-      fetchedSubjectName2,
+      fetchedSubject1,
+      fetchedSubject2,
     } = await fetchRandomSubjectsByCategory(currentCategory?.id || -1);
-    setCurrentSubjectName1(fetchedSubjectName1);
-    setCurrentSubjectName2(fetchedSubjectName2);
+    setCurrentSubject1(fetchedSubject1);
+    setCurrentSubject2(fetchedSubject2);
   }
 
   return (
@@ -64,8 +79,8 @@ function Index() {
         <div className="flex justify-evenly items-center flex-col md:flex-row my-10 md:my-28 gap-4 md:gap-0">
           <div className="w-4/5 md:w-1/3">
             <Card 
-              text={currentSubjectName1 || "default subject"}
-              onClick={handleSubjectCardClick}
+              text={currentSubject1?.name || "default subject"}
+              onClick={() => handleSubjectCardClick(currentSubject1)}
             />
           </div>
           <div className="w-4/5 md:w-1/3 text-center">
@@ -75,8 +90,8 @@ function Index() {
           </div>
           <div className="w-4/5 md:w-1/3">
             <Card 
-              text={currentSubjectName2 || "default subject"}
-              onClick={handleSubjectCardClick}
+              text={currentSubject2?.name || "default subject"}
+              onClick={() => handleSubjectCardClick(currentSubject2)}
             />
           </div>
         </div>

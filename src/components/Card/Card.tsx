@@ -2,7 +2,7 @@ import { MouseEvent } from "react"
 
 interface CardProps {
     text: string;
-    onClick: (event: MouseEvent) => void;
+    onClick: () => void;
 }
 
 export const Card = ({ text, onClick }: CardProps) => {
